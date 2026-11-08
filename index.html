@@ -89,7 +89,7 @@ a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-r
 .section h2 { margin: 0; font: 500 0.85rem/1 var(--sans); color: var(--faint); }
 
 /* ---------- Companies: logo plates stay white so the real logos read in both themes ---------- */
-.companies { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.companies { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .company {
   display: grid; grid-template-rows: 96px auto; min-width: 0;
   border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface);
@@ -102,6 +102,8 @@ a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-r
 .plate.dealve { background: #0f2c4c; }
 .dealve-mark { font: 800 1.9rem/1 "Inter", var(--sans); letter-spacing: -0.03em; color: #ffffff; }
 .dealve-mark span { color: #f5a35f; font-weight: 700; margin-left: 4px; }
+.plate.ac { background: #0a0f1e; }
+.ac-mark { display: inline-flex; align-items: center; gap: 8px; font: 700 0.86rem/1 "Inter", var(--sans); letter-spacing: 0.14em; color: #ffffff; white-space: nowrap; }
 .company .body { padding: 14px 16px 16px; display: grid; gap: 4px; }
 .company .name { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-weight: 500; }
 .role { font: 400 0.8rem/1 var(--mono); color: var(--faint); }
@@ -132,6 +134,12 @@ a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-r
 .fs .wm { font: 500 1.2rem/1 "Spectral", Georgia, serif; color: #e7ece5; }
 .tr { background: linear-gradient(135deg, #3a2490 0%, #22165a 70%); }
 .tr .wm { font: 700 1.1rem/1 "Inter", var(--sans); color: #ffffff; letter-spacing: -0.01em; }
+.ii { background: linear-gradient(160deg, #111c33 0%, #0a0f1e 75%); }
+.ii .brand img { height: 30px; width: auto; }
+.ii .wm { font: 700 0.82rem/1 "Inter", var(--sans); letter-spacing: 0.2em; color: #e5e9f0; }
+.ii .wm span { color: #4f8ff7; }
+.aai { background: linear-gradient(180deg, #213259 0%, #0e1420 100%); }
+.aai .brand img { height: 26px; width: auto; }
 
 /* ---------- Motion: runs only while on screen; at rest each panel shows its finished state ---------- */
 .panel:not(.live) * { animation: none !important; }
@@ -162,8 +170,27 @@ a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-r
 .bar.b2 { animation-delay: .5s; } .bar.b3 { animation-delay: 1s; } .bar.b4 { animation-delay: 1.5s; }
 @keyframes redact { 0%,10% { transform: scaleX(0); } 20%,90% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
 
+/* Armory Intel: a weapon is checked out, then returned */
+.out { animation: out 6s ease-in-out infinite; }
+.back { animation: back 6s ease-in-out infinite; }
+.out.o2, .back.k2 { animation-delay: 1.2s; }
+@keyframes out { 0%,40% { opacity: 1; } 48%,100% { opacity: 0; } }
+@keyframes back { 0%,40% { opacity: 0; } 48%,100% { opacity: 1; } }
+.panel:not(.live) .out { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .out { opacity: 0; } }
+
+/* Armory AI: photo is scanned, fields fill in */
+.snap { animation: snap 6s linear infinite; }
+@keyframes snap { 0% { transform: translateY(0); opacity: 0; } 6% { opacity: 1; } 34% { transform: translateY(64px); opacity: 1; } 40%,100% { transform: translateY(64px); opacity: 0; } }
+.field { animation: field 6s ease-out infinite; }
+.field.f2 { animation-delay: .35s; } .field.f3 { animation-delay: .7s; }
+@keyframes field { 0%,40% { opacity: 0; } 50%,92% { opacity: 1; } 100% { opacity: 0; } }
+
 footer { color: var(--faint); font-size: 0.85rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 20px; }
 
+@media (max-width: 680px) {
+  .companies { grid-template-columns: 1fr; }
+}
 @media (max-width: 600px) {
   .wrap { gap: 48px; padding-block: 40px 32px; }
   .companies, .projects { grid-template-columns: 1fr; }
@@ -220,6 +247,18 @@ footer { color: var(--faint); font-size: 0.85rem; display: flex; justify-content
           <p>Builds software, mostly for the M&amp;A space.</p>
         </div>
       </a>
+      <a class="company" href="https://american-code.com" target="_blank" rel="noopener">
+        <div class="plate ac">
+          <span class="ac-mark" aria-label="American Code">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+            AMERICAN CODE
+          </span>
+        </div>
+        <div class="body">
+          <div class="name">American Code LLC <span class="role">Co-owner</span></div>
+          <p>Builds secure web and mobile apps for security and inventory tracking.</p>
+        </div>
+      </a>
     </div>
   </section>
 
@@ -227,6 +266,25 @@ footer { color: var(--faint); font-size: 0.85rem; display: flex; justify-content
     <h2 id="proj-h">Projects</h2>
     <div class="projects">
 
+      <a class="project" href="https://vettingvault.com" target="_blank" rel="noopener">
+        <div class="panel vv">
+          <div class="brand"><img src="img/vettingvault.png" alt="Vetting Vault" width="93" height="30"></div>
+          <svg class="art" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect x="34" y="70" width="252" height="150" rx="8" fill="#ffffff" stroke="#dde3ef"/>
+            <text x="52" y="94" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">Diligence requests</text>
+            <text x="230" y="94" font-family="Inter, sans-serif" font-size="7" fill="#64748b">3 of 3</text>
+            <rect x="52" y="102" width="216" height="4" rx="2" fill="#e3e8f3"/>
+            <rect class="fill" x="52" y="102" width="216" height="4" rx="2" fill="#1e3a8a"/>
+            <circle class="req" cx="58" cy="124" r="5" fill="#1e3a8a"/><rect x="70" y="121" width="110" height="5" rx="2.5" fill="#d6dcea"/><rect x="226" y="119" width="42" height="10" rx="3" fill="#eef2fb"/>
+            <circle class="req r2" cx="58" cy="144" r="5" fill="#1e3a8a"/><rect x="70" y="141" width="90" height="5" rx="2.5" fill="#d6dcea"/><rect x="226" y="139" width="42" height="10" rx="3" fill="#eef2fb"/>
+            <circle class="req r3" cx="58" cy="164" r="5" fill="#1e3a8a"/><rect x="70" y="161" width="124" height="5" rx="2.5" fill="#d6dcea"/><rect x="226" y="159" width="42" height="10" rx="3" fill="#eef2fb"/>
+          </svg>
+        </div>
+        <div class="body">
+          <p>Due diligence data room: requests, documents and Q&amp;A in one workspace.</p>
+          <span class="visit">vettingvault.com</span>
+        </div>
+      </a>
       <a class="project" href="https://undersigned.co" target="_blank" rel="noopener">
         <div class="panel us">
           <div class="brand">
@@ -249,27 +307,6 @@ footer { color: var(--faint); font-size: 0.85rem; display: flex; justify-content
           <span class="visit">undersigned.co</span>
         </div>
       </a>
-
-      <a class="project" href="https://vettingvault.com" target="_blank" rel="noopener">
-        <div class="panel vv">
-          <div class="brand"><img src="img/vettingvault.png" alt="Vetting Vault" width="93" height="30"></div>
-          <svg class="art" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <rect x="34" y="70" width="252" height="150" rx="8" fill="#ffffff" stroke="#dde3ef"/>
-            <text x="52" y="94" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">Diligence requests</text>
-            <text x="230" y="94" font-family="Inter, sans-serif" font-size="7" fill="#64748b">3 of 3</text>
-            <rect x="52" y="102" width="216" height="4" rx="2" fill="#e3e8f3"/>
-            <rect class="fill" x="52" y="102" width="216" height="4" rx="2" fill="#1e3a8a"/>
-            <circle class="req" cx="58" cy="124" r="5" fill="#1e3a8a"/><rect x="70" y="121" width="110" height="5" rx="2.5" fill="#d6dcea"/><rect x="226" y="119" width="42" height="10" rx="3" fill="#eef2fb"/>
-            <circle class="req r2" cx="58" cy="144" r="5" fill="#1e3a8a"/><rect x="70" y="141" width="90" height="5" rx="2.5" fill="#d6dcea"/><rect x="226" y="139" width="42" height="10" rx="3" fill="#eef2fb"/>
-            <circle class="req r3" cx="58" cy="164" r="5" fill="#1e3a8a"/><rect x="70" y="161" width="124" height="5" rx="2.5" fill="#d6dcea"/><rect x="226" y="159" width="42" height="10" rx="3" fill="#eef2fb"/>
-          </svg>
-        </div>
-        <div class="body">
-          <p>Due diligence data room: requests, documents and Q&amp;A in one workspace.</p>
-          <span class="visit">vettingvault.com</span>
-        </div>
-      </a>
-
       <a class="project" href="https://finshare.io" target="_blank" rel="noopener">
         <div class="panel fs">
           <div class="brand">
@@ -300,7 +337,6 @@ footer { color: var(--faint); font-size: 0.85rem; display: flex; justify-content
           <span class="visit">finshare.io</span>
         </div>
       </a>
-
       <a class="project" href="https://taxredact.com" target="_blank" rel="noopener">
         <div class="panel tr">
           <div class="brand"><span class="wm">TaxRedact</span></div>
@@ -329,6 +365,56 @@ footer { color: var(--faint); font-size: 0.85rem; display: flex; justify-content
         <div class="body">
           <p>Finds SSNs, EINs and bank details in tax PDFs and removes them permanently.</p>
           <span class="visit">taxredact.com</span>
+        </div>
+      </a>
+      <a class="project" href="https://armoryintel.co" target="_blank" rel="noopener">
+        <div class="panel ii">
+          <div class="brand"><img src="img/armoryintel.png" alt="" width="25" height="30"><span class="wm">ARMORY <span>INTEL</span></span></div>
+          <svg class="art" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect x="26" y="66" width="268" height="150" rx="8" fill="#121a2c" stroke="#24304a"/>
+            <g font-family="Inter, sans-serif" font-size="6.5" fill="#7d8aa3" letter-spacing=".06em">
+              <text x="42" y="86">SERIAL</text><text x="140" y="86">ASSIGNED TO</text><text x="232" y="86">STATUS</text>
+            </g>
+            <line x1="42" y1="93" x2="278" y2="93" stroke="#24304a"/>
+            <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="7" fill="#d6dbe5">
+              <text x="42" y="112">PD-GLK-0142</text><text x="42" y="136">PD-AR15-0031</text><text x="42" y="160">PD-RAD-0217</text>
+            </g>
+            <g font-family="Inter, sans-serif" font-size="7" fill="#aab4c7">
+              <text x="140" y="112">Ofc. Ramirez</text><text x="140" y="136">Sgt. Chen</text><text x="140" y="160">Armory</text>
+            </g>
+            <g font-family="Inter, sans-serif" font-size="6.5" font-weight="600">
+              <g class="out"><rect x="230" y="104" width="50" height="12" rx="6" fill="#3a2c12"/><text x="237" y="112" fill="#f5b544">Checked out</text></g>
+              <g class="back"><rect x="230" y="104" width="50" height="12" rx="6" fill="#123323"/><text x="240" y="112" fill="#4ade80">Returned</text></g>
+              <g class="out o2"><rect x="230" y="128" width="50" height="12" rx="6" fill="#3a2c12"/><text x="237" y="136" fill="#f5b544">Checked out</text></g>
+              <g class="back k2"><rect x="230" y="128" width="50" height="12" rx="6" fill="#123323"/><text x="240" y="136" fill="#4ade80">Returned</text></g>
+              <rect x="230" y="152" width="50" height="12" rx="6" fill="#16233d"/><text x="241" y="160" fill="#4f8ff7">In stock</text>
+            </g>
+          </svg>
+        </div>
+        <div class="body">
+          <p>Armory and equipment management for police and sheriff's departments, with full chain of custody.</p>
+          <span class="visit">armoryintel.co</span>
+        </div>
+      </a>
+      <a class="project" href="https://armoryai.app" target="_blank" rel="noopener">
+        <div class="panel aai">
+          <div class="brand"><img src="img/armoryai.png" alt="Armory AI" width="94" height="26"></div>
+          <svg class="art" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect x="40" y="62" width="104" height="104" rx="10" fill="#0e1420" stroke="#e3b25a" stroke-opacity=".5"/>
+            <path d="M58 132h52l6-8h12v-6h-30l-4-6H74l-2 6H58z" fill="#3a4766"/>
+            <rect x="80" y="132" width="10" height="16" rx="2" fill="#3a4766" transform="rotate(12 85 140)"/>
+            <path d="M40 80V70a8 8 0 0 1 8-8h10M126 62h10a8 8 0 0 1 8 8v10M144 148v10a8 8 0 0 1-8 8h-10M58 166H48a8 8 0 0 1-8-8v-10" fill="none" stroke="#e3b25a" stroke-width="2.2" stroke-linecap="round"/>
+            <rect class="snap" x="46" y="78" width="92" height="2" fill="#e3b25a"/>
+            <g font-family="Inter, sans-serif">
+              <g class="field"><text x="164" y="84" font-size="6.5" fill="#8f9bb5" letter-spacing=".06em">MAKE</text><text x="164" y="97" font-size="10" font-weight="600" fill="#f2f4f8">Glock</text></g>
+              <g class="field f2"><text x="164" y="118" font-size="6.5" fill="#8f9bb5" letter-spacing=".06em">MODEL</text><text x="164" y="131" font-size="10" font-weight="600" fill="#f2f4f8">19 Gen 5</text></g>
+              <g class="field f3"><text x="164" y="152" font-size="6.5" fill="#8f9bb5" letter-spacing=".06em">CALIBER</text><text x="164" y="165" font-size="10" font-weight="600" fill="#e3b25a">9mm</text></g>
+            </g>
+          </svg>
+        </div>
+        <div class="body">
+          <p>Catalog firearms, ammo and gear from a photo. Private, and locked with Face ID.</p>
+          <span class="visit">armoryai.app</span>
         </div>
       </a>
 
